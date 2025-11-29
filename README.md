@@ -100,32 +100,30 @@ This project was developed with a focus on:
 - **Intention-Revealing Names:** Variables and methods have names that clearly indicate their purpose (e.g., `startApplicationLoop`, `executeUserCommand`, `isCompleted`).
 - **Immutability:** The `taskDescription` and `creationTimestamp` fields in `Task` are marked as `final` for thread safety and stability. -->
 
-
-
 ## 📌 Clean Code To-Do App (Java CLI)
 
 This is a simple Command-Line Interface (CLI) To-Do application built in Java, demonstrating a basic object-oriented design and clean code principles.
 
------
+---
 
 ### 🚀 Features
 
 The application allows users to manage their daily tasks with the following features:
 
-  * **Add** new tasks.
-  * **Mark** existing tasks as completed.
-  * **View** all tasks with their status.
-  * **View** only pending (incomplete) tasks.
-  * **Exit** the application gracefully.
+- **Add** new tasks.
+- **Mark** existing tasks as completed.
+- **View** all tasks with their status.
+- **View** only pending (incomplete) tasks.
+- **Exit** the application gracefully.
 
------
+---
 
 ### 💻 Getting Started
 
 #### Prerequisites
 
-  * **Java Development Kit (JDK) 11 or higher** installed on your system.
-  * A Java IDE (like IntelliJ IDEA, Eclipse) or a text editor with a terminal.
+- **Java Development Kit (JDK) 11 or higher** installed on your system.
+- A Java IDE (like IntelliJ IDEA, Eclipse) or a text editor with a terminal.
 
 #### Running the Application
 
@@ -139,7 +137,7 @@ The application allows users to manage their daily tasks with the following feat
     For a manual compile from the source directory (`todoapp/` contains all `.java` files):
     ```bash
     # Assuming you are in the directory containing the 'todoapp' folder
-    javac todoapp/*.java 
+    javac todoapp/*.java
     ```
 3.  **Run the Main Class:**
     The application's entry point is the `TodoCLI` class.
@@ -147,7 +145,7 @@ The application allows users to manage their daily tasks with the following feat
     java todoapp.TodoCLI
     ```
 
------
+---
 
 ### 📝 Usage
 
@@ -157,13 +155,13 @@ Once the application is running, you'll be greeted by the main menu.
 
 The application continuously loops, prompting you to select a command.
 
-| Command | Description |
-| :---: | :--- |
-| **1** | Add a new task to the list. |
-| **2** | Mark a task as completed using its index. |
-| **3** | View all tasks (completed and pending). |
-| **4** | View only the pending tasks. |
-| **exit** | Shut down the application. |
+| Command  | Description                               |
+| :------: | :---------------------------------------- |
+|  **1**   | Add a new task to the list.               |
+|  **2**   | Mark a task as completed using its index. |
+|  **3**   | View all tasks (completed and pending).   |
+|  **4**   | View only the pending tasks.              |
+| **exit** | Shut down the application.                |
 
 <br>
 
@@ -179,19 +177,19 @@ Entering `3` will display all tasks currently in the system, along with their cr
 
 Enter `2` and press **Enter**. The application will first list all tasks (similar to option `3`) and then prompt you for the **index** of the task you want to complete.
 
-  * **Example:** To mark the first task as done, you would enter `0`.
+- **Example:** To mark the first task as done, you would enter `0`.
 
------
+---
 
 ### 🛠️ Project Structure
 
 The project is divided into three core classes, following the **Single Responsibility Principle**:
 
-| Class | Responsibility |
-| :--- | :--- |
-| **`Task.java`** | Represents a single to-do item. Handles its own state (description, completion status, timestamp). |
+| Class                  | Responsibility                                                                                                                  |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
+| **`Task.java`**        | Represents a single to-do item. Handles its own state (description, completion status, timestamp).                              |
 | **`TaskService.java`** | Manages the collection of `Task` objects (the `taskList`). Contains business logic for adding, completing, and filtering tasks. |
-| **`TodoCLI.java`** | The main entry point (`main` method). Handles all User Interface (UI) and input/output logic via the command line. |
+| **`TodoCLI.java`**     | The main entry point (`main` method). Handles all User Interface (UI) and input/output logic via the command line.              |
 
 ### Class Implementations
 
@@ -204,11 +202,11 @@ package todoapp;
 import java.time.LocalDateTime;
 
 public class Task {
-    private final String taskDescription; 
-    
+    private final String taskDescription;
+
     private boolean isCompleted;
-    
-    private final LocalDateTime creationTimestamp; 
+
+    private final LocalDateTime creationTimestamp;
 
     public Task(String taskDescription) {
         this.taskDescription = taskDescription;
@@ -252,7 +250,7 @@ import java.util.stream.Collectors;
 
 
 public class TaskService {
-    private final List<Task> taskList = new ArrayList<>(); 
+    private final List<Task> taskList = new ArrayList<>();
 
     public void addTask(String description) {
         Task newTask = new Task(description);
@@ -266,7 +264,7 @@ public class TaskService {
             taskToComplete.markAsCompleted();
             System.out.println("Completed: " + taskToComplete.getTaskDescription());
         } else {
-            System.out.println("Error: Invalid task index."); 
+            System.out.println("Error: Invalid task index.");
         }
     }
 
@@ -276,7 +274,7 @@ public class TaskService {
 
     public List<Task> getPendingTasks() {
         return taskList.stream()
-                .filter(task -> !task.isCompleted()) 
+                .filter(task -> !task.isCompleted())
                 .collect(Collectors.toList());
     }
 
@@ -307,23 +305,23 @@ import java.util.Scanner;
 public class TodoCLI {
     private final TaskService taskService;
     // Use an intention-revealing name for the input reader.
-    private final Scanner scanner; 
+    private final Scanner scanner;
 
     public TodoCLI() {
         this.taskService = new TaskService();
-        this.scanner = new Scanner(System.in); 
+        this.scanner = new Scanner(System.in);
     }
 
     public void startApplicationLoop() {
         System.out.println("Welcome to the Clean Code To-Do App!");
 
-        boolean isRunning = true; 
-        
+        boolean isRunning = true;
+
         while (isRunning) {
             displayMenu();
-            String userChoice = scanner.nextLine().trim(); 
+            String userChoice = scanner.nextLine().trim();
 
-            isRunning = executeUserCommand(userChoice); 
+            isRunning = executeUserCommand(userChoice);
         }
         System.out.println("Application shutdown. Goodbye!");
         scanner.close();
@@ -363,7 +361,7 @@ public class TodoCLI {
 
     private void addNewTask() {
         System.out.print("Enter task description: ");
-        String taskDescriptionInput = scanner.nextLine().trim(); 
+        String taskDescriptionInput = scanner.nextLine().trim();
         if (!taskDescriptionInput.isEmpty()) {
             taskService.addTask(taskDescriptionInput);
         } else {
@@ -373,7 +371,7 @@ public class TodoCLI {
 
     private void completeTask() {
         taskService.printAllTasks();
-        
+
         if (taskService.getTaskCount() == 0) {
             return;
         }
@@ -389,12 +387,12 @@ public class TodoCLI {
 
     private void printPendingTasks() {
         List<Task> pendingTasks = taskService.getPendingTasks();
-        
+
         System.out.println("\n--- PENDING TASKS ---");
         if (pendingTasks.isEmpty()) {
             System.out.println("All tasks are completed! Great job.");
         } else {
-            for (Task pendingTask : pendingTasks) { 
+            for (Task pendingTask : pendingTasks) {
                 System.out.println(pendingTask);
             }
         }
@@ -408,13 +406,16 @@ public class TodoCLI {
 }
 ```
 
------
+---
 
 ### 💡 Clean Code & OOP Principles
 
 This project was developed with a focus on:
 
-  * **Encapsulation:** The `Task` object protects its data using `private` fields and provides controlled access via `public` getter methods (`getTaskDescription()`, `isCompleted()`).
-  * **Separation of Concerns:** The application logic is clearly separated: `TodoCLI` handles I/O, and `TaskService` handles data management.
-  * **Intention-Revealing Names:** Variables and methods have names that clearly indicate their purpose (e.g., `startApplicationLoop`, `executeUserCommand`, `isCompleted`).
-  * **Immutability:** The `taskDescription` and `creationTimestamp` fields in `Task` are marked as `final` for thread safety and stability.
+- **Encapsulation:** The `Task` object protects its data using `private` fields and provides controlled access via `public` getter methods (`getTaskDescription()`, `isCompleted()`).
+- **Separation of Concerns:** The application logic is clearly separated: `TodoCLI` handles I/O, and `TaskService` handles data management.
+- **Intention-Revealing Names:** Variables and methods have names that clearly indicate their purpose (e.g., `startApplicationLoop`, `executeUserCommand`, `isCompleted`).
+- **Immutability:** The `taskDescription` and `creationTimestamp` fields in `Task` are marked as `final` for thread safety and stability.
+
+✨ AI-Assisted Documentation Notice
+This README.md file, including its structure, descriptions, and analysis of the code, was generated with the help of an AI assistant (Gemini).
