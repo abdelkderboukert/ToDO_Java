@@ -418,5 +418,3 @@ This project was developed with a focus on:
   * **Separation of Concerns:** The application logic is clearly separated: `TodoCLI` handles I/O, and `TaskService` handles data management.
   * **Intention-Revealing Names:** Variables and methods have names that clearly indicate their purpose (e.g., `startApplicationLoop`, `executeUserCommand`, `isCompleted`).
   * **Immutability:** The `taskDescription` and `creationTimestamp` fields in `Task` are marked as `final` for thread safety and stability.
-
-Would you like me to generate a simple class diagram image for the **Project Structure** section to further illustrate the relationships between `Task`, `TaskService`, and `TodoCLI`?
